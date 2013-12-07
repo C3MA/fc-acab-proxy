@@ -33,7 +33,6 @@ class FcPixel():
     def __str__(self):
         return "r%sg%sb%s" % (self.red, self.green, self.blue)
 
-
 def getEOS():
 
     payload = sequence_pb2.Snip()
