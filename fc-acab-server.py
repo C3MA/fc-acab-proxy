@@ -22,12 +22,12 @@ CLIENT_ACAB_HOST = '0.0.0.0'
 CLIENT_ACAB_PORT = 5000
 
 WALLS = {
-  #  'fc-1': {'type':'fc', 'host':'10.23.42.102', 'port':24567, 'offset':[0,0], }, # Ollo
-  #  'fc-1': {'type':'fc', 'host':'10.23.42.88', 'port':24567, 'offset':[0,0]},  # Wand
-  #  'fc-1': {'type':'fc', 'host':'10.23.42.201', 'port':24567, 'offset':[0,0]}, # Mac
+    'fc-1': {'type':'fc', 'host':'10.23.42.102', 'offset':[0,0], }, # Ollo
+  #  'fc-1': {'type':'fc', 'host':'10.23.42.88', 'offset':[0,0]},  # Wand
+  #  'fc-1': {'type':'fc', 'host':'10.23.42.201', 'offset':[0,0]}, # Mac
 
-    'fc-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]}, # ACAB Sim
-    'acabsim-2' : {'type':'acab', 'host':'localhost', 'port':6010, 'offset':[0,11]}, # ACAB Sim-2
+   # 'fc-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]}, # ACAB Sim
+   # 'acabsim-2' : {'type':'acab', 'host':'localhost', 'port':6010, 'offset':[0,11]}, # ACAB Sim-2
 
     #'acab-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]},
     #'fc-1': {'type':'fc', 'host':'localhost', 'port':23467, 'offset':[3,3]},
@@ -75,19 +75,42 @@ MATRIX = {
 
 width = 8
 height = 22
+fps = 5
+lastUpdate = time.time()
 
 for wKey in WALLS:
     w = WALLS[wKey]
     if w['type'] == 'acab':
+        print "Prepare ACAB Wall ", wKey
         w['socket'] = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     else:
+        print "Prepare fc Wall ", wKey
         w['socket'] = FcClient(w['host'])
         if 'size' not in w.keys():
-            w['size'] = w['socket'].request_info()
+            print "Request info ",wKey
+            info = w['socket'].request_info()
+            w['size'] = [info[0], info[1]]
+            w['fps'] = info[2]
+            if info[2] > fps:
+                fps = int(info[2])
+        print "Connect to Wall ",wKey
         w['socket'].initialiseConnection(w['size'][0], w['size'][1], 12, None)
+        print "Wait for Start ",wKey
         w['socket'].waitForStart()
+        print "Start ",wKey
         w['frame'] = FcFrame(w['size'][0], w['size'][1])
         w['actFrame'] = copy.copy(w['frame'])
+        w['bufFrame'] = copy.copy(w['frame'])
+
+def fpsChecker():
+    while True:
+        if (time.time() - lastUpdate) > ((1. / fps)*2):
+            for wKey in WALLS:
+                wa = WALLS[wKey]
+                if  wa['type'] == 'fc':
+                    wa['socket'].sendFrame(wa['bufFrame'])
+
+        time.sleep((1. / fps))
 
 def findWall(x, y):
     """
@@ -124,7 +147,9 @@ def handleData(x,y,cmd,r,g,b,msh,msl):
                 wa['socket'].sendto(msg, (wa['host'], wa['port']))
             elif  wa['type'] == 'fc':
                 wa['socket'].sendFrame(wa['actFrame'])
+                wa['bufFrame'] = copy.copy(wa['actFrame'])
                 wa['actFrame'] = copy.copy(wa['frame'])
+        lastUpdate = time.time()
     elif cmd == 'F':
         msg = "%c%cF%c%c%c%c%c" % (x ,y ,r,g,b,msh,msl)
         w['socket'].sendto(msg, (w['host'], w['port']))
@@ -146,6 +171,7 @@ def acabHandler():
             msl = ord(data[7])
 
             handleData(x,y,cmd,r,g,b,msh,msl)
+            #time.sleep(0.5)
 
         except Exception as e:
             print "Unexpected error:", e
@@ -246,15 +272,14 @@ if __name__ == "__main__":
     sock.bind((CLIENT_ACAB_HOST,CLIENT_ACAB_PORT))
     thread.start_new_thread(acabHandler, ())
     thread.start_new_thread(acabReader, (sock,))
-
-
     thread.start_new_thread(fcHandler, ())
+    thread.start_new_thread(fpsChecker, ())
 
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(("", 24567))
         s.listen(True)
-
+        print "Listing for TCP Connections"
         while True:
             con, addr = s.accept()
             print "New FC Connection from ", addr

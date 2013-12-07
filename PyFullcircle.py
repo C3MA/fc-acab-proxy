@@ -201,7 +201,7 @@ class FcClient(object):
         if incoming.type == 13:
         # Auskommentiert da es Debug war
         #print "Got the expected answer!"
-            return incoming.infoanswer_snip.meta.width , incoming.infoanswer_snip.meta.height
+            return incoming.infoanswer_snip.meta.width , incoming.infoanswer_snip.meta.height , incoming.infoanswer_snip.meta.frames_per_second
         else:
             raise socket.error("custom", "Wrong type, expected PongSnip" )
 
