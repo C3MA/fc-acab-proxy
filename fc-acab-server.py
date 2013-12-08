@@ -25,32 +25,14 @@ CLIENT_FC_HOST = '0.0.0.0'
 CLIENT_FC_PORT = 24567
 
 WALLS = {
-  #  'fc-1': {'type':'fc', 'host':'10.23.42.102', 'offset':[0,0], }, # Ollo
-  #  'fc-1': {'type':'fc', 'host':'10.23.42.88', 'offset':[0,0]},  # Wand
-  #  'fc-1': {'type':'fc', 'host':'10.23.42.201', 'offset':[0,0]}, # Mac
+    #'fc-1': {'type':'fc', 'host':'10.23.42.102', 'offset':[0,0] }, # Ollo
+    #'fc-1': {'type':'fc', 'host':'10.23.42.201', 'offset':[0,0] }, # Ollo Mac
+    #'fc-1': {'type':'fc', 'host':'10.23.42.88',  'offset':[0,0] }, # FC-Controller
+    #'fc-1': {'type':'fc', 'host':'10.23.42.87', 'offset':[0,0]},   # FC-Backup-Controller
 
-    'fc-1': {'type':'fc', 'host':'10.23.42.87', 'offset':[0,0]}, # Mac
-
-
-   # 'fc-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]}, # ACAB Sim
-   # 'acabsim-2' : {'type':'acab', 'host':'localhost', 'port':6010, 'offset':[0,11]}, # ACAB Sim-2
-
-    #'acab-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]},
-    #'fc-1': {'type':'fc', 'host':'localhost', 'port':23467, 'offset':[3,3]},
+    #'fc-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]}, # ACAB Sim
+    #'acabsim-2' : {'type':'acab', 'host':'localhost', 'port':6010, 'offset':[0,11]}, # ACAB Sim-2
 }
-
-"""
-MATRIX = {
-    0 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'acab-1', 4:'acab-1', 5:'acab-1', 6:'acab-1', 7:'acab-1', 8:'acab-1', 9:'acab-1', 10:'acab-1'},
-    1 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'acab-1', 4:'acab-1', 5:'acab-1', 6:'acab-1', 7:'acab-1', 8:'acab-1', 9:'acab-1', 10:'acab-1'},
-    2 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'acab-1', 4:'acab-1', 5:'acab-1', 6:'acab-1', 7:'acab-1', 8:'acab-1', 9:'acab-1', 10:'acab-1'},
-    3 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'fc-1',   4:'fc-1',   5:'fc-1',   6:'fc-1',   7:'fc-1',   8:'acab-1', 9:'acab-1', 10:'acab-1'},
-    4 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'fc-1',   4:'fc-1',   5:'fc-1',   6:'fc-1',   7:'fc-1',   8:'acab-1', 9:'acab-1', 10:'acab-1'},
-    5 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'fc-1',   4:'fc-1',   5:'fc-1',   6:'fc-1',   7:'fc-1',   8:'acab-1', 9:'acab-1', 10:'acab-1'},
-    6 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'fc-1',   4:'fc-1',   5:'fc-1',   6:'fc-1',   7:'fc-1',   8:'acab-1', 9:'acab-1', 10:'acab-1'},
-    7 : {0:'acab-1', 1:'acab-1', 2:'acab-1', 3:'fc-1',   4:'fc-1',   5:'fc-1',   6:'fc-1',   7:'fc-1',   8:'acab-1', 9:'acab-1', 10:'acab-1'},
-}
-"""
 
 MATRIX = {
     0 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
@@ -81,7 +63,7 @@ MATRIX = {
 
 width = 8
 height = 22
-fps = 5
+fps = 1
 lastUpdate = time.time()
 
 for wKey in WALLS:
