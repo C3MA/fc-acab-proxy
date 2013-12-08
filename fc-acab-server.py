@@ -21,10 +21,16 @@ import sequence_pb2
 CLIENT_ACAB_HOST = '0.0.0.0'
 CLIENT_ACAB_PORT = 5000
 
+CLIENT_FC_HOST = '0.0.0.0'
+CLIENT_FC_PORT = 24567
+
 WALLS = {
-    'fc-1': {'type':'fc', 'host':'10.23.42.102', 'offset':[0,0], }, # Ollo
+  #  'fc-1': {'type':'fc', 'host':'10.23.42.102', 'offset':[0,0], }, # Ollo
   #  'fc-1': {'type':'fc', 'host':'10.23.42.88', 'offset':[0,0]},  # Wand
   #  'fc-1': {'type':'fc', 'host':'10.23.42.201', 'offset':[0,0]}, # Mac
+
+    'fc-1': {'type':'fc', 'host':'10.23.42.87', 'offset':[0,0]}, # Mac
+
 
    # 'fc-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]}, # ACAB Sim
    # 'acabsim-2' : {'type':'acab', 'host':'localhost', 'port':6010, 'offset':[0,11]}, # ACAB Sim-2
@@ -103,12 +109,15 @@ for wKey in WALLS:
         w['bufFrame'] = copy.copy(w['frame'])
 
 def fpsChecker():
+    global lastUpdate
     while True:
-        if (time.time() - lastUpdate) > ((1. / fps)*2):
+        if (time.time() - lastUpdate) > ((1. / fps)*3):
             for wKey in WALLS:
                 wa = WALLS[wKey]
                 if  wa['type'] == 'fc':
                     wa['socket'].sendFrame(wa['bufFrame'])
+            lastUpdate = time.time()
+            print "UPDATE ", lastUpdate
 
         time.sleep((1. / fps))
 
@@ -128,6 +137,7 @@ q = Queue.Queue(100)
 qFc = Queue.Queue(10)
 
 def handleData(x,y,cmd,r,g,b,msh,msl):
+    global lastUpdate
     w = findWall(x,y)
 
     if not w:
@@ -171,7 +181,6 @@ def acabHandler():
             msl = ord(data[7])
 
             handleData(x,y,cmd,r,g,b,msh,msl)
-            #time.sleep(0.5)
 
         except Exception as e:
             print "Unexpected error:", e
@@ -230,7 +239,7 @@ class FCServer(threading.Thread):
         self.conn.close();
 
     def handleInput(self, incoming):
-
+        global lastUpdate
         if incoming.type == 4:
             if incoming.req_snip.meta.width != width or incoming.req_snip.meta.height != height:
                 s = sequence_pb2.Snip()
@@ -255,6 +264,7 @@ class FCServer(threading.Thread):
             for pix in incoming.frame_snip.frame.pixel:
                 handleData(pix.x, pix.y, 'C', pix.red, pix.green, pix.blue, 0, 0)
             handleData(0,0,'U',0,0,0,0,0)
+            lastUpdate = time.time()
 
         else:
             print "Unbehandelter Typ: '%s'" % incoming.type
@@ -277,7 +287,7 @@ if __name__ == "__main__":
 
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(("", 24567))
+        s.bind((CLIENT_FC_HOST, CLIENT_FC_PORT))
         s.listen(True)
         print "Listing for TCP Connections"
         while True:
