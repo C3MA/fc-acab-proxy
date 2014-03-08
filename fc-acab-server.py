@@ -18,16 +18,16 @@ import sequence_pb2
 
 # Codename "TZ"
 
-CLIENT_ACAB_HOST = '0.0.0.0'
+CLIENT_ACAB_HOST = '10.23.42.60'
 CLIENT_ACAB_PORT = 5000
 
-CLIENT_FC_HOST = '0.0.0.0'
+CLIENT_FC_HOST = '10.23.42.60'
 CLIENT_FC_PORT = 24567
 
 WALLS = {
     #'fc-1': {'type':'fc', 'host':'10.23.42.102', 'offset':[0,0] }, # Ollo
     #'fc-1': {'type':'fc', 'host':'10.23.42.201', 'offset':[0,0] }, # Ollo Mac
-    #'fc-1': {'type':'fc', 'host':'10.23.42.88',  'offset':[0,0] }, # FC-Controller
+    'fc-1': {'type':'fc', 'host':'10.23.42.88',  'offset':[0,0] }, # FC-Controller
     #'fc-1': {'type':'fc', 'host':'10.23.42.87', 'offset':[0,0]},   # FC-Backup-Controller
 
     #'fc-1' : {'type':'acab', 'host':'localhost', 'port':6000, 'offset':[0,0]}, # ACAB Sim
@@ -35,34 +35,20 @@ WALLS = {
 }
 
 MATRIX = {
-    0 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    1 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    2 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    3 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    4 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    5 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    6 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    7 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    8 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-    9 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-   10 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1'},
-
-   11 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   12 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   13 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   14 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   15 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   16 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   17 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   18 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   19 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   20 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
-   21 : {0:'acabsim-2', 1:'acabsim-2', 2:'acabsim-2', 3:'acabsim-2', 4:'acabsim-2', 5:'acabsim-2', 6:'acabsim-2', 7:'acabsim-2'},
+    0 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    1 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    2 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    3 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    4 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    5 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    6 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    7 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
+    8 : {0:'fc-1', 1:'fc-1', 2:'fc-1', 3:'fc-1', 4:'fc-1', 5:'fc-1', 6:'fc-1', 7:'fc-1', 8:'fc-1', 9:'fc-1', 10:'fc-1', 11:'fc-1'},
 }
 
 
-width = 8
-height = 22
+width = 12
+height = 8
 fps = 1
 lastUpdate = time.time()
 
@@ -74,6 +60,10 @@ for wKey in WALLS:
     else:
         print "Prepare fc Wall ", wKey
         w['socket'] = FcClient(w['host'])
+
+        print "Test REquest"
+        w['socket'].request_info()
+
         if 'size' not in w.keys():
             print "Request info ",wKey
             info = w['socket'].request_info()
@@ -89,6 +79,9 @@ for wKey in WALLS:
         w['frame'] = FcFrame(w['size'][0], w['size'][1])
         w['actFrame'] = copy.copy(w['frame'])
         w['bufFrame'] = copy.copy(w['frame'])
+
+
+fps = 2
 
 def fpsChecker():
     global lastUpdate

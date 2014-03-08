@@ -257,7 +257,9 @@ class FcClient(object):
     def waitForStart(self):
         if not self.sendPossible:
             # read from the socket (expect Ack)
+            print "wait"
             rawreceive = self.sock.recv(10)
+            print "OK"
             # extract length of header (simply the first 10 bytes)
             length = (rawreceive[:10]).strip()
 
